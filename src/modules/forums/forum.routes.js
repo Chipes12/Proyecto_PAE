@@ -6,7 +6,7 @@ router.route('/')
 .post(controller.create);
 
 router.route('/:id')
-.get(controller.getId)
+.get(controller.getOne)
 .put(controller.update)
 .delete(controller.delete);
 
