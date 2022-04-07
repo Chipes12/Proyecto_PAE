@@ -1,17 +1,13 @@
 const Database = require('../../core/database');
 const Model = require('../../core/model');
 const {ObjectId} = require('mongodb');
-const { accepts } = require('express/lib/request');
-//const jwt = require('jsonwebtoken');
-//const tokenKey = process.env.TOKEN_KEY;
-//const port = process.env.PORT;
 
 class Forum extends Model {
     constructor(){
         super('forums');
     }
-    //getAll already implemented
-    //getOne already implemented
+    //getAll already implemented in model
+    //getOne already implemented in model
     //delete already implemented in model
     //update already implemented in model
 
@@ -23,15 +19,15 @@ class Forum extends Model {
                 else {
                     let today = new Date();
                     let newForum = {
-                        "title": body.title,
-                        "description": body.description,
-                        "author": body.author,
-                        "createdAt": today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
-                        "updatedAt": today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
-                        "tags" : null,
-                        "posts": null
+                        title: body.title,
+                        description: body.description,
+                        author: body.author,
+                        createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                        updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                        tags : [],
+                        posts: []
                     };
-                    this.collection.save(newForum);
+                    this.collection.insertOne(newForum);
                     accept("Success");
                 }
             });
