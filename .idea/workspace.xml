@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9df3a1b6-8c39-4a92-be4c-bbe23a72f99c" name="Changes" comment="" />
+    <list default="true" id="9df3a1b6-8c39-4a92-be4c-bbe23a72f99c" name="Changes" comment="CRUDs terminados">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/post/post.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/post/post.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/roles/role.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/roles/role.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/roles/role.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/roles/role.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/tags/tag.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/tags/tag.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/tags/tag.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/tags/tag.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/userForum/userForum.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/userForum/userForum.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/userForum/userForum.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/userForum/userForum.model.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="origin/Malex" />
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -34,12 +50,18 @@
         </map>
       </branch-storage>
     </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="26GKy1Sl5T4TsVghdyXScD7z5Mo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -48,8 +70,30 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app.js" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Node.js.app.js">
+    <configuration name="app.js" type="NodeJSConfigurationType" path-to-node="node" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="run" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.app.js" />
+      <item itemvalue="npm.run" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -60,6 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647044734457</updated>
       <workItem from="1647044735859" duration="220000" />
+      <workItem from="1649527881563" duration="5995000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore updated to ignore vcs.xml">
       <created>1647044916763</created>
@@ -68,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647044916763</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test commit branch malex">
+      <created>1647045570201</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1647045570201</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -87,6 +139,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore updated to ignore vcs.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore updated to ignore vcs.xml" />
+    <MESSAGE value="test commit branch malex" />
+    <MESSAGE value="CRUDs terminados" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUDs terminados" />
   </component>
 </project>
