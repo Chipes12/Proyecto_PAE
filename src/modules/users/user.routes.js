@@ -128,4 +128,34 @@ router.route('/:id')
    */
 .delete(controller.delete);
 
+router.route('/login')
+  /**
+   * @swagger
+   *   /users/login:
+   *     post:
+   *       tags:
+   *       - Users
+   *       description: Start a session 
+   *       parameters:
+   *         - in: body
+   *           name: credentials
+   *           description: the data to initiate the session
+   *           schema:
+   *              type: object
+   *              required:
+   *                  - password
+   *                  - email
+   *              properties:
+   *                  password:
+   *                      type: String
+   *                  email:
+   *                      type: String
+   *       responses:
+   *         200:
+   *           description: String with the session token
+   *         500:
+   *           description: String with the error message
+   */
+.post(controller.login);
+
 module.exports = router;
