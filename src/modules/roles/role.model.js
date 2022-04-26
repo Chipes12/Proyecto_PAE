@@ -13,19 +13,24 @@ class Role extends Model {
 
     create(body){
         return new Promise((accept, reject) => {
-            if(!body.title || !body.description || !body.author) reject("Data is missing");
-            Database.collection('users').findOne({_id: ObjectId(body.author)}, (err, result) => {
-                if(!result) reject('Not a real user');
+            if(!body.name || !body.forum) reject("Data is missing");
+            Database.collection('forums').findOne({_id: ObjectId(body.forum)}, (err, result) => {
+                if(!result) reject('Forum dont exist');
                 else {
-                    let today = new Date();
-                    let newRole = {
-                        name: body.name,
-                        color: body.color,
-                        icon: body.icon,
-                        createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-                    };
-                    this.collection.insertOne(newRole);
-                    accept("Success");
+                    if(result.roles.includes(body.name)) reject("Role already exist");
+                    else{
+                        let newRole = {
+                            name: body.name,
+                            color: body.color || 'gray',
+                            icon: body.icon,
+                            forum: body.forum
+                        };
+                        this.collection.insertOne(newRole).then(result => {
+                            let insertedId = {roleId: result.insertedId.toString()};
+                            Database.collection('forums').updateOne({_id: ObjectId(body.forum)}, {$push: {roles: {insertedId}}});
+                            accept('Success');
+                        });
+                    }
                 }
             });
         });
