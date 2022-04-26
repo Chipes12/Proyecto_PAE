@@ -29,7 +29,6 @@ class Post extends Model {
                                 comments: [],
                                 createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
                             }
-                            let newForumPost = new Array();
                             this.collection.insertOne(newPost).then(result => {
                                 let insertedId = {postId: result.insertedId.toString()};
                                 Database.collection('forums').updateOne({_id: ObjectId(body.forum)}, {$push: {posts: {insertedId}}});
