@@ -24,8 +24,8 @@ class Forum extends Model {
                         author: body.author,
                         createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
                         updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
-                        tags : [],
-                        posts: []
+                        posts: [],
+                        roles: [admin, common],
                     };
                     this.collection.insertOne(newForum);
                     accept("Success");
