@@ -41,7 +41,7 @@ router.route('/')
    *                  email:
    *                      type: String
    *                  profile_picture:
-   *                      type: File
+   *                      type: image
    *       responses:
    *         201:
    *           description: String with success message

@@ -13,42 +13,45 @@ class User extends Model {
     create(body) {
         return new Promise((accept, reject) => {
             if(!body.username || !body.password || !body.email) reject('Data is missing');
-            this.collection.findOne({email: body.email}, (err, result) => {
-                if(result) reject('Mail already in use');
-                else {
-                    let newUser = {
-                        username: body.username,
-                        password: body.password,
-                        email: body.email,
-                        profile_picture: body.profile_picture,
-                        role_id: body.role_id
+            else{
+                this.collection.findOne({email: body.email}, (err, result) => {
+                    if(result) reject('Mail already in use');
+                    else {
+                        let newUser = {
+                            username: body.username,
+                            password: body.password,
+                            email: body.email,
+                            profile_picture: body.profile_picture,
+                        }
+                        this.collection.insertOne(newUser);
+                        accept('Success');
                     }
-                    this.collection.insertOne(newUser);
-                    accept('Success');
-                }
-            });
+                });
+            }
         });
     }
     login(body){
         return new Promise((accept, reject) => {
             if(!body.email || !body.password) reject('Data is missing');
-            this.collection.findOne({email: body.email}, (err, result)=> {
-                if(result){
-                    if(result.password == body.password){
-                        let payload = {
-                            _id : result._id
+            else{
+                this.collection.findOne({email: body.email}, (err, result)=> {
+                    if(result){
+                        if(result.password == body.password){
+                            let payload = {
+                                _id : result._id
+                            }
+                            let options = {
+                                expiresIn: 60 * 60
+                            };
+                            accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
+                        }else{
+                            reject("Wrong credentials");
                         }
-                        let options = {
-                            expiresIn: 60 * 60
-                        };
-                        accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
                     }else{
-                        reject("Wrong credentials");
+                        reject("Not existing user");
                     }
-                }else{
-                    reject("Not existing user");
-                }
-            });
+                });
+            }
         });
     }
 }

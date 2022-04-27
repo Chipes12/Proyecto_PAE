@@ -13,24 +13,29 @@ class Forum extends Model {
 
     create(body){
         return new Promise((accept, reject) => {
-            if(!body.title || !body.description || !body.author) reject("Data is missing");
-            Database.collection('users').findOne({_id: ObjectId(body.author)}, (err, result) => {
-                if(!result) reject('Not a real user');
-                else {
-                    let today = new Date();
-                    let newForum = {
-                        title: body.title,
-                        description: body.description,
-                        author: body.author,
-                        createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
-                        updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
-                        posts: [],
-                        roles: [admin, common],
-                    };
-                    this.collection.insertOne(newForum);
-                    accept("Success");
-                }
-            });
+            if(!body.title || !body.description || !body.id_author) reject("Data is missing");
+            else{
+                Database.collection('users').findOne({_id: ObjectId(body.id_author)}, (err, result) => {
+                    if(!result) reject('Not a real user');
+                    else {
+                        this.collection.findOne({title: body.title}, (err, result) => {
+                            if(result) reject('There is a forum with this name already');
+                            else{
+                                let today = new Date();
+                                let newForum = {
+                                    title: body.title,
+                                    description: body.description,
+                                    id_author: body.id_author,
+                                    createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                                    updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                                };
+                                this.collection.insertOne(newForum);
+                                accept("Success");
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 }

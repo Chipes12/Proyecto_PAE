@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const controller = require('./roles.controller');
+const controller = require('./role.controller');
 
 router.route('/')
   /**
@@ -29,19 +29,13 @@ router.route('/')
    *              type: object
    *              required:
    *                  - name
-   *                  - forum
    *              optional:
    *                  - color
-   *                  - icon
    *              properties:
    *                  name:
    *                      type: String
-   *                  forum:
-   *                      type: String
    *                  color:
    *                      type: String
-   *                  icon:
-   *                      type: Image
    *       responses:
    *         201:
    *           description: String with success message
@@ -90,14 +84,11 @@ router.route('/:id')
    *              optional:
    *                  - name
    *                  - color
-   *                  - icon
    *              properties:
    *                  name:
    *                      type: String
    *                  color:
    *                      type: String
-   *                  icon:
-   *                      type: Image
    *       responses:
    *         200:
    *           description: String with success message
