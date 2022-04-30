@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const multer = require('multer');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
 //const socketIo = require('socket.io');
@@ -22,20 +21,6 @@ app.use(cors());
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: true }));
 app.use('/', apiRoutes);
-
-const multerOptions = {
-    destination: (req, file, cb) => {
-        cb(null, 'public/images');
-    },
-    filename: (req, file, cb) => {
-        const ext = file.originalname.split('.').pop();
-        cb(null, `${req.body.name}_${new Date().getTime()}.${ext}`);
-    }
-}
-
-const multerStorage = multer.diskStorage(multerOptions);
-
-const upload = multer({storage: multerStorage})
 
 const swaggerOptions = {
     swaggerDefinition: {
