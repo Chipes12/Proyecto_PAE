@@ -1,5 +1,6 @@
 const Model = require('../../core/model');
 const jwt = require('jsonwebtoken');
+const {ObjectId} = require('mongodb');
 const tokenKey = process.env.TOKEN_KEY;
 
 class User extends Model {
@@ -9,8 +10,7 @@ class User extends Model {
     //getAll already implemented in model
     //getOne already implemented in model
     //delete already implemented in model
-    //update already implemented in model
-    create(body) {
+    create(body, file) {
         return new Promise((accept, reject) => {
             if(!body.username || !body.password || !body.email) reject('Data is missing');
             else{
@@ -21,7 +21,7 @@ class User extends Model {
                             username: body.username,
                             password: body.password,
                             email: body.email,
-                            profile_picture: body.profile_picture,
+                            profile_picture: 'public/images/'+ (file.filename || null)
                         }
                         this.collection.insertOne(newUser);
                         accept('Success');
@@ -30,6 +30,25 @@ class User extends Model {
             }
         });
     }
+
+    update(id, body, file){
+        return new Promise((accept, reject) => {
+            this.collection.findOne({_id: ObjectId(id)}, (err, result) => {
+                if(result){
+                    let upgrade = {
+                        username: body.username || result.username,
+                        password: body.password || result.password,
+                        email: body.email || result.email,
+                        profile_picture: ('public/images/'+ file.filename) || result.profile_picture
+                    }
+                    accept(this.collection.updateOne({_id: ObjectId(id)}, {$set: upgrade}));
+                } else{
+                    reject("No user found");
+                }
+            });
+        });
+    }
+
     login(body){
         return new Promise((accept, reject) => {
             if(!body.email || !body.password) reject('Data is missing');

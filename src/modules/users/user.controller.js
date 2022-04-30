@@ -19,7 +19,7 @@ const UsersController = {
     },
     create: (req, res) => {
         const user = new User();
-        user.create(req.body).then(result => {
+        user.create(req.body, req.file).then(result => {
             if(result) res.sendStatus(201);
         }).catch(err => {
             res.sendStatus(500);
@@ -27,7 +27,7 @@ const UsersController = {
     },
     update: (req, res) => {
         const user = new User();
-        user.update(req.params.id, req.body).then(result => {
+        user.update(req.params.id, req.body, req.file).then(result => {
             if(result) res.sendStatus(200);
         }).catch(err => {
             res.sendStatus(500);
