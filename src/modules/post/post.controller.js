@@ -20,15 +20,15 @@ const PostsController = {
     },
     create: (req, res) => {
         const post = new Post();
-        post.create(req.body).then(result => {
+        post.create(req.body, req.file).then(result => {
             if(result) res.sendStatus(201);
         }).catch(err => {
-            res.sendStatus(500);
+            res.send(err);
         });
     },
     update: (req, res) => {
         const post = new Post();
-        post.update(req.params.id, req.body).then(result => {
+        post.update(req.params.id, req.body, req.file).then(result => {
             if(result) res.sendStatus(200);
         }).catch(err => {
             res.sendStatus(500);
