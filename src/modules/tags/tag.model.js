@@ -13,21 +13,20 @@ class Tag extends Model {
 
     create(body){
         return new Promise((accept, reject) => {
-            if(!body.title || !body.description || !body.author) reject("Data is missing");
-            Database.collection('users').findOne({_id: ObjectId(body.author)}, (err, result) => {
-                if(!result) reject('Not a real user');
-                else {
-                    let today = new Date();
-                    let newTag = {
-                        name: body.name,
-                        color: body.color,
-                        icon: body.icon,
-                        createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-                    };
-                    this.collection.insertOne(newTag);
-                    accept("Success");
-                }
-            });
+            if(!body.name || !body.id_forum) reject("Data is missing");
+            else{
+                Database.collection('forums').findOne({_id: ObjectId(body.id_forum)}, (err, result) => {
+                    if(!result) reject('Not a real forum');
+                    else {
+                        let newTag = {
+                            name: body.name,
+                            id_forum: body.id_forum
+                        };
+                        this.collection.insertOne(newTag);
+                        accept("Success");
+                    }
+                });
+            }
         });
     }
 }

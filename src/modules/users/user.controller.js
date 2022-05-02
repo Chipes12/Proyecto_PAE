@@ -40,6 +40,14 @@ const UsersController = {
         }).catch(err => {
             res.sendStatus(500);
         });
+    },
+    login: (req, res) => {
+        const user = new User();
+        user.login(req.body).then(result => {
+            if(result) res.send(result);
+        }).catch(err => {
+            res.sendStatus(500);
+        })
     }
 }
 

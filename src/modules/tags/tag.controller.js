@@ -23,7 +23,7 @@ const TagsController = {
         tag.create(req.body).then(result => {
             if(result) res.sendStatus(201);
         }).catch(err => {
-            res.send(500);
+            res.sendStatus(500);
         });
     },
     update: (req, res) => {

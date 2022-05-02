@@ -1,45 +1,46 @@
 const router = require('express').Router();
-const controller = require('./post.controller');
+const controller = require('./comment.controller');
 
 router.route('/')
   /**
    * @swagger
-   *   /posts:
+   *   /comments:
    *     get:
    *       tags:
-   *       - Posts
-   *       description: Get all posts
+   *       - Comments
+   *       description: Get all commentss
    *       responses:
    *         200:
-   *           description: Array with a list of posts
+   *           description: Array with a list of commentss
    */
-.get(controller.getAll)
+  .get(controller.getAll)
   /**
    * @swagger
-   *   /posts:
+   *   /comments:
    *     post:
    *       tags:
-   *       - Posts
-   *       description: Create a post 
+   *       - Comments
+   *       description: Create a comment 
    *       parameters:
    *         - in: body
-   *           name: post
-   *           description: what?, when? who? and why? of the post
+   *           name: comment
+   *           description: who?, where? what? reply?
    *           schema:
    *              type: object
+   *              optional:
+   *                  - id_reply
    *              required:
-   *                  - title
-   *                  - content
-   *                  - author
-   *                  - forum
+   *                  - id_user
+   *                  - id_post
+   *                  - message
    *              properties:
-   *                  title:
+   *                  id_user:
    *                      type: String
-   *                  content:
-   *                      type: any
-   *                  author:
+   *                  id_post:
    *                      type: String
-   *                  forum:
+   *                  id_reply:
+   *                      type: String
+   *                  message:
    *                      type: String
    *       responses:
    *         201:
@@ -47,78 +48,75 @@ router.route('/')
    *         500:
    *           description: String with the error message
    */
-.post(controller.create);
+  .post(controller.create);
 
 router.route('/:id')
   /**
    * @swagger
-   *   /posts/{id}:
+   *   /comments/{id}:
    *     get:
    *       tags:
-   *       - Posts
-   *       description: Get one post by ID
+   *       - Comments
+   *       description: Get one comment by ID
    *       parameters:
    *         - in: path
    *           name: id
    *           required: true
-   *           description: The post's unique ID
+   *           description: The comment's unique ID
    *       responses:
    *         200:
-   *           description: An object with the post data
+   *           description: An object with the comment data
    *         500:
    *           description: String with the error message
    */
-.get(controller.getOne)
+  .get(controller.getOne)
   /**
    * @swagger
-   *   /posts/{id}:
+   *   /comments/{id}:
    *     put:
    *       tags:
-   *       - Posts
-   *       description: update one post by his id
+   *       - Comments
+   *       description: update one comment by his id
    *       parameters:
    *         - in: path
    *           name: id
    *           required: true
-   *           description: the post's unique id
+   *           description: the comment forum id
    *         - in: body
    *           name: updates
-   *           description: the changes you do to the forum
+   *           description: the changes you do to the comment
    *           schema:
    *              type: object
    *              optional:
-   *                  - title
-   *                  - content
+   *                  - message
    *              properties:
-   *                  title:
+   *                  message:
    *                      type: String
-   *                  content:
-   *                      type: any
    *       responses:
    *         200:
    *           description: String with success message
    *         500:
    *           description: String with the error message
-   */        
-.put(controller.update)
+   */
+  .put(controller.update)
   /**
    * @swagger
-   *   /posts/{id}:
+   *   /comments/{id}:
    *     delete:
    *       tags:
-   *       - Posts
-   *       description: delete a specific post with the id
+   *       - Comments
+   *       description: delete a specific comment with the id
    *       parameters:
    *         - in: path
    *           name: id
    *           required: true
-   *           description: The post's unique ID
+   *           description: The comments unique ID
    *       responses:
    *         200:
    *           description: String success message
    *         500:
    *           description: String with the error message
    */
-.delete(controller.delete);
+  .delete(controller.delete);
 
 module.exports = router;

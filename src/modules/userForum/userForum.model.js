@@ -4,7 +4,7 @@ const {ObjectId} = require('mongodb');
 
 class UserForum extends Model {
     constructor(){
-        super('forums');
+        super('users_forum');
     }
     //getAll already implemented in model
     //getOne already implemented in model
@@ -13,21 +13,36 @@ class UserForum extends Model {
 
     create(body){
         return new Promise((accept, reject) => {
-            if(!body.title || !body.description || !body.author) reject("Data is missing");
-            Database.collection('users').findOne({_id: ObjectId(body.author)}, (err, result) => {
-                if(!result) reject('Not a real user');
-                else {
-                    let today = new Date();
-                    let newForum = {
-                        user: body.user,
-                        forum: body.forum,
-                        role: body.role,
-                        createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-                    };
-                    this.collection.insertOne(newForum);
-                    accept("Success");
-                }
-            });
+            if(!body.id_user || !body.id_forum || !body.id_role) reject("Data is missing");
+            else{
+                Database.collection('users').findOne({_id: ObjectId(body.id_user)}, (err, result) => {
+                    if(!result) reject('Not a real user');
+                    else{
+                        this.collection.findOne({id_user: body.id_user, id_forum: body.id_forum}, (err, result) => {
+                            if(result) reject('Already created');
+                            else{
+                                Database.collection('forums').findOne({_id: ObjectId(body.id_forum)}, (err, result) => {
+                                    if(!result) reject('Not a real forum');
+                                    else{
+                                        Database.collection('roles').findOne({_id: ObjectId(body.id_role)}, (err, result) => {
+                                            if(!result) reject('Not a real role');
+                                            else {
+                                                let newUserForum = {
+                                                    id_user: body.id_user,
+                                                    id_forum: body.id_forum,
+                                                    id_role: body.id_role,
+                                                };
+                                                this.collection.insertOne(newUserForum);
+                                                accept("Success");
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 }
