@@ -11,9 +11,9 @@ class Forum extends Model {
     //delete already implemented in model
     //update already implemented in model
 
-    create(body){
+    create(body, file){
         return new Promise((accept, reject) => {
-            if(!body.title || !body.description || !body.id_author) reject("Data is missing");
+            if(!body.title || !body.description || !body.id_author || !file) reject("Data is missing");
             else{
                 Database.collection('users').findOne({_id: ObjectId(body.id_author)}, (err, result) => {
                     if(!result) reject('Not a real user');
@@ -26,6 +26,7 @@ class Forum extends Model {
                                     title: body.title,
                                     description: body.description,
                                     id_author: body.id_author,
+                                    picture: 'public/images/'+ file.filename,
                                     createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
                                     updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
                                 };
@@ -36,6 +37,24 @@ class Forum extends Model {
                     }
                 });
             }
+        });
+    }
+    update(id, body, file){
+        return new Promise((accept, reject) => {
+            this.collection.findOne({_id: ObjectId(id)}, (err, result) => {
+                if(result){
+                    let today = new Date();
+                    let upgrade = {
+                        title: body.title || result.title,
+                        description: body.description || result.description,
+                        picture: ('public/images/'+ file.filename) || result.picture,
+                        updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                    }
+                    accept(this.collection.updateOne({_id: ObjectId(id)}, {$set: upgrade}));
+                } else{
+                    reject("No forum found");
+                }
+            });
         });
     }
 }

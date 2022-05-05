@@ -31,6 +31,7 @@ router.route('/')
    *                  - title
    *                  - description
    *                  - author
+   *                  - picture
    *              properties:
    *                  title:
    *                      type: String
@@ -38,6 +39,8 @@ router.route('/')
    *                      type: String
    *                  author:
    *                      type: String
+   *                  picture:
+   *                      type: Image
    *       responses:
    *         201:
    *           description: String with success message
@@ -86,11 +89,14 @@ router.route('/:id')
    *              optional:
    *                  - title
    *                  - description
+   *                  - picture
    *              properties:
    *                  title:
    *                      type: String
    *                  description:
    *                      type: String
+   *                  picture:
+   *                      type: Image
    *       responses:
    *         200:
    *           description: String with success message
