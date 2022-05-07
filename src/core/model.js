@@ -31,6 +31,9 @@ class Model {
     update(id, upgrade){
         return this.collection.updateOne({_id: ObjectId(id)}, {$set: upgrade});
     }
+    count(){
+        return this.collection.count();
+    }
 }
 
 module.exports = Model;

@@ -49,6 +49,20 @@ router.route('/')
    */
   .post(controller.create);
 
+  router.route('/count')
+/**
+ * @swagger
+ *   /forums/count:
+ *     get:
+ *       tags:
+ *       - Forums
+ *       description: Get the total of forums
+ *       responses:
+ *         200:
+ *           description: object with number of forums
+ */
+.get(controller.count);
+
 router.route('/:id')
   /**
    * @swagger

@@ -51,6 +51,20 @@ router.route('/')
    */
 .post(upload.single('archivo'), controller.create);
 
+router.route('/count')
+/**
+ * @swagger
+ *   /users/count:
+ *     get:
+ *       tags:
+ *       - Users
+ *       description: Get the total of users
+ *       responses:
+ *         200:
+ *           description: object with number of users
+ */
+.get(controller.count);
+
 router.route('/:id')
   /**
    * @swagger

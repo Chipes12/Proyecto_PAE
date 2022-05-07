@@ -41,6 +41,14 @@ const CommentsController = {
         }).catch(err => {
             res.sendStatus(500);
         });
+    },
+    count:(req, res) => {
+        const comment = new Comment();
+        comment.count().then(result => {
+            if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
     }
 }
 

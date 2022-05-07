@@ -41,6 +41,14 @@ const ForumsController = {
         }).catch(err => {
             res.sendStatus(500);
         });
+    },
+    count:(req, res) => {
+        const forum = new Forum();
+        forum.count().then(result => {
+            if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
     }
 }
 

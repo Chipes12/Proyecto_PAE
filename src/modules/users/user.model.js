@@ -12,7 +12,7 @@ class User extends Model {
     //getAll already implemented in model
     //getOne already implemented in model
     //delete already implemented in model
-    create(body, file) {
+    create(body) {
         return new Promise((accept, reject) => {
             if(!body.username || !body.password || !body.email) reject('Data is missing');
             else{
@@ -23,7 +23,7 @@ class User extends Model {
                             username: body.username,
                             password: bcrypt.hashSync(body.password, saltRounds),
                             email: body.email,
-                            profile_picture: 'public/images/'+ (file.filename || null)
+                            profile_picture: 'public/images/defaultavatar'
                         }
                         this.collection.insertOne(newUser);
                         accept('Success');

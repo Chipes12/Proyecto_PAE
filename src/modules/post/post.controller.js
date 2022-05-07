@@ -41,7 +41,15 @@ const PostsController = {
         }).catch(err => {
             res.sendStatus(500);
         });
-    }
+    },
+    count:(req, res) => {
+        const post = new Posts();
+        post.count().then(result => {
+            if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
 }
 
 module.exports = PostsController;

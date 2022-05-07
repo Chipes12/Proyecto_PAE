@@ -50,6 +50,20 @@ router.route('/')
    */
   .post(controller.create);
 
+router.route('/count')
+/**
+ * @swagger
+ *   /comments/count:
+ *     get:
+ *       tags:
+ *       - Comments
+ *       description: Get the total of comments
+ *       responses:
+ *         200:
+ *           description: object with number of comments
+ */
+.get(controller.count);
+
 router.route('/:id')
   /**
    * @swagger
@@ -118,5 +132,7 @@ router.route('/:id')
    *           description: String with the error message
    */
   .delete(controller.delete);
+
+  
 
 module.exports = router;
