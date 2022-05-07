@@ -1,6 +1,8 @@
 const Model = require('../../core/model');
 const jwt = require('jsonwebtoken');
 const {ObjectId} = require('mongodb');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const tokenKey = process.env.TOKEN_KEY;
 
 class User extends Model {
@@ -19,7 +21,7 @@ class User extends Model {
                     else {
                         let newUser = {
                             username: body.username,
-                            password: body.password,
+                            password: bcrypt.hashSync(body.password, saltRounds),
                             email: body.email,
                             profile_picture: 'public/images/'+ (file.filename || null)
                         }
@@ -37,7 +39,7 @@ class User extends Model {
                 if(result){
                     let upgrade = {
                         username: body.username || result.username,
-                        password: body.password || result.password,
+                        password: bcrypt.hashSync(body.password, saltRounds) || result.password,
                         email: body.email || result.email,
                         profile_picture: ('public/images/'+ file.filename) || result.profile_picture
                     }
@@ -55,7 +57,7 @@ class User extends Model {
             else{
                 this.collection.findOne({email: body.email}, (err, result)=> {
                     if(result){
-                        if(result.password == body.password){
+                        if(bcrypt.compareSync(body.password, result.password)){
                             let payload = {
                                 _id : result._id
                             }
