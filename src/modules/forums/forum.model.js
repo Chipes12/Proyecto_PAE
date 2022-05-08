@@ -44,11 +44,21 @@ class Forum extends Model {
             this.collection.findOne({_id: ObjectId(id)}, (err, result) => {
                 if(result){
                     let today = new Date();
-                    let upgrade = {
-                        title: body.title || result.title,
-                        description: body.description || result.description,
-                        picture: ('public/images/'+ file.filename) || result.picture,
-                        updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                    let upgrade = {};
+                    if(file){
+                        upgrade = {
+                            title: body.title || result.title,
+                            description: body.description || result.description,
+                            picture: 'public/images/'+ file.filename,
+                            updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                        }
+                    } else{
+                        upgrade = {
+                            title: body.title || result.title,
+                            description: body.description || result.description,
+                            picture: result.picture,
+                            updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
+                        }
                     }
                     accept(this.collection.updateOne({_id: ObjectId(id)}, {$set: upgrade}));
                 } else{
