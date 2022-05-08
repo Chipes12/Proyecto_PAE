@@ -64,6 +64,27 @@ router.route('/count')
  */
 .get(controller.count);
 
+router.route('/forum/:id')
+  /**
+   * @swagger
+   *   /posts/forum/{id}:
+   *     get:
+   *       tags:
+   *       - Posts
+   *       description: Get all the posts with a id forum
+   *       parameters:
+   *         - in: path
+   *           name: id
+   *           required: true
+   *           description: The forum's unique ID
+   *       responses:
+   *         200:
+   *           description: An array of posts of the same forum
+   *         500:
+   *           description: String with the error message
+   */
+.get(controller.getPostOfForum);
+
 router.route('/:id')
   /**
    * @swagger

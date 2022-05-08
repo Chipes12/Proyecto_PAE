@@ -59,7 +59,9 @@ class User extends Model {
                     if(result){
                         if(bcrypt.compareSync(body.password, result.password)){
                             let payload = {
-                                _id : result._id
+                                _id : result._id,
+                                username: result.username,
+                                email: result.email
                             }
                             let options = {
                                 expiresIn: 60 * 60

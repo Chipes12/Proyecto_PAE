@@ -65,5 +65,14 @@ class Post extends Model {
             });
         });
     }
+
+    getPostOfForum(id){
+        return new Promise((accept, reject) => {
+            this.collection.find({id_forum: id}).toArray((err, results) => {
+                if (err) reject(err);
+                else accept(results);
+            });
+        });
+    }
 }
 module.exports = Post;

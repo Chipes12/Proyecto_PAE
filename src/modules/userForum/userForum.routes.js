@@ -46,6 +46,31 @@ router.route('/')
    */
 .post(controller.create);
 
+router.route('/forum/:idForum/user/:idUser')
+  /**
+   * @swagger
+   *   /userForums/forum/{idForum}/user/{idUser}:
+   *     get:
+   *       tags:
+   *       - Users-Forums
+   *       description: Get all users of a forum
+   *       parameters:
+   *         - in: path
+   *           name: idForum
+   *           required: true
+   *           description: The forum's unique 
+   *         - in: path
+   *           name: idUser
+   *           required: true
+   *           description: The user's unique ID
+   *       responses:
+   *         200:
+   *           description: A object with the user in the forum data
+   *         500:
+   *           description: String with the error message
+   */
+.get(controller.searchUserForum);
+
 router.route('/count')
 /**
  * @swagger
@@ -59,6 +84,48 @@ router.route('/count')
  *           description: object with number of userForums
  */
 .get(controller.count);
+
+router.route('/user/:id')
+  /**
+   * @swagger
+   *   /userForums/user/{id}:
+   *     get:
+   *       tags:
+   *       - Users-Forums
+   *       description: Get all forums of a user
+   *       parameters:
+   *         - in: path
+   *           name: id
+   *           required: true
+   *           description: The user's unique ID
+   *       responses:
+   *         200:
+   *           description: Array of the forums with the user on it
+   *         500:
+   *           description: String with the error message
+   */
+.get(controller.searchUser);
+
+router.route('/forum/:id')
+  /**
+   * @swagger
+   *   /userForums/forum/{id}:
+   *     get:
+   *       tags:
+   *       - Users-Forums
+   *       description: Get all users of a forum
+   *       parameters:
+   *         - in: path
+   *           name: id
+   *           required: true
+   *           description: The forum's unique ID
+   *       responses:
+   *         200:
+   *           description: Array of the users in the same forum
+   *         500:
+   *           description: String with the error message
+   */
+.get(controller.searchForum);
 
 router.route('/:id')
   /**

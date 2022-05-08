@@ -43,9 +43,17 @@ const PostsController = {
         });
     },
     count:(req, res) => {
-        const post = new Posts();
+        const post = new Post();
         post.count().then(result => {
             if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
+    getPostOfForum:(req, res) => {
+        const post = new Post();
+        post.getPostOfForum(req.params.id).then(results => {
+            if(results) res.status(200).send(results);
         }).catch(err => {
             res.sendStatus(500);
         });

@@ -45,6 +45,30 @@ class UserForum extends Model {
             }
         });
     }
+
+    searchUser(id){
+        return new Promise((accept, reject) => {
+            this.collection.find({id_user: id}).toArray((err, results) => {
+                if (err) reject(err);
+                else accept(results);
+               });
+        });
+    }
+
+    searchForum(id){
+        return new Promise((accept, reject) => {
+            this.collection.find({id_forum: id}).toArray((err, results) => {
+                if (err) reject(err);
+                else accept(results);
+               });
+        });
+    }
+
+    searchUserForum(idForum, idUser){
+        return new Promise((accept, reject) => {
+            accept(this.collection.findOne({id_forum: idForum, id_user: idUser }));
+        });
+    }
 }
 
 module.exports = UserForum;
