@@ -50,6 +50,27 @@ router.route('/')
    */
   .post(controller.create);
 
+  router.route('/getAll/:id')
+  /**
+   * @swagger
+   *   /comments/getAll/{id}:
+   *     get:
+   *       tags:
+   *       - Comments
+   *       description: Get all the comments of a post
+   *       parameters:
+   *         - in: path
+   *           name: id
+   *           required: true
+   *           description: The post's unique ID
+   *       responses:
+   *         200:
+   *           description: Array with the comments of that post
+   *         500:
+   *           description: String with the error message
+   */
+  .get(controller.getAllCommentsForum);
+
 router.route('/count')
 /**
  * @swagger

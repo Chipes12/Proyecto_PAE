@@ -50,6 +50,14 @@ const CommentsController = {
             res.sendStatus(500);
         });
     },
+    getAllCommentsForum: (req, res) => {
+        const comment = new Comment();
+        comment.getAllcomentsForum(req.params.id).then(result => {
+            if(result) res.status(200).send(result);
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
 }
 
 module.exports = CommentsController;
