@@ -10,7 +10,7 @@ const multerOptions = {
     }
 }
 
-const extensiones = ['jpg', 'gif'];
+const extensiones = ['jpg', 'gif', 'png'];
 const fileFilter = (req, file, cb) => {
     const extension = file.originalname.split('.').pop().toLowerCase();
     const flag = extensiones.includes(extension);

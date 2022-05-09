@@ -48,7 +48,7 @@ router.route('/')
    *         500:
    *           description: String with the error message
    */
-.post(upload.single('archivo'), controller.create);
+.post(upload.single('file'), controller.create);
 
 router.route('/count')
 /**
@@ -136,7 +136,7 @@ router.route('/:id')
    *         500:
    *           description: String with the error message
    */        
-.put(upload.single('archivo'), controller.update)
+.put(upload.single('file'), controller.update)
   /**
    * @swagger
    *   /posts/{id}:

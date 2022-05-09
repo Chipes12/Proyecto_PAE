@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
-//const socketIo = require('socket.io');
+const socketIo = require('socket.io');
 const cors = require('cors');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -39,7 +39,25 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 Database.connect().then(() => {
+    // Listen to port
     server =  app.listen(port, () => {
         console.log('App is listening to port ' + port);
+    });
+    const io = socketIo(server, {
+        cors:{
+            origin:'http://localhost:4200',
+            methods: ['GET', 'POST', 'PUT', 'DELETE'],
+            allowHeaders: ['Authorization'],
+            credentials: true
+        }
+    });
+    
+    io.on('connection', socket => {
+        console.log('alguien se conecto');
+        
+        socket.on('newMessage', data => {
+            console.log('Hay nuevo mensaje', data);
+            socket.broadcast.emit('reciveMessage', data);
+        });
     });
 });
