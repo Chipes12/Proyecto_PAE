@@ -87,15 +87,19 @@ class User extends Model {
             googleClient.verifyIdToken({
                 idToken: body.idToken
             }).then(response => {
-                Database.collection('users').findOne({email: response.email}).then(user => {
+                let email = response.payload.email
+                Database.collection('users').findOne({email: email}).then(user => {
                     if(user){
                         let payload = {
                             _id : user._id,
                             username: user.username,
-                            email: result.email
+                            email: user.email
                         }
+                        let options = {
+                            expiresIn: 60 * 60
+                        };
                         if(!user.googleId){
-                            Database.collection('users').updateOne({email: response.email}, {$set: {googleId: body.id}}).then(() => {
+                            Database.collection('users').updateOne({email: email}, {$set: {googleId: body.idToken}}).then(() => {
                                 accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
                             });
                         } else{
