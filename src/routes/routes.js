@@ -8,6 +8,7 @@ const userForumRoutes = require('./../modules/userForum/userForum.routes');
 const userRoutes = require('./../modules/users/user.routes');
 const commentRoutes = require('./../modules/comments/comment.routes');
 
+
 router.use('/forums', forumRoutes);
 router.use('/users', userRoutes);
 router.use('/posts', postRoutes);

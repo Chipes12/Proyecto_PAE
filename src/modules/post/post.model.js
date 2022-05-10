@@ -24,7 +24,7 @@ class Post extends Model {
                                 let today = new Date();
                                 let newPost = {
                                     title: body.title,
-                                    content: 'public/images/'+ file.filename,
+                                    content: file.filename,
                                     id_author: body.id_author,
                                     id_forum: body.id_forum,
                                     createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()

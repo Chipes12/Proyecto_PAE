@@ -27,7 +27,7 @@ class User extends Model {
                             username: body.username,
                             password: bcrypt.hashSync(body.password, saltRounds),
                             email: body.email,
-                            profile_picture: 'public/images/defaultavatar'
+                            profile_picture: 'defaultavatar.jpg'
                         }
                         this.collection.insertOne(newUser);
                         accept('Success');

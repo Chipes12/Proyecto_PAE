@@ -26,7 +26,7 @@ class Forum extends Model {
                                     title: body.title,
                                     description: body.description,
                                     id_author: body.id_author,
-                                    picture: 'public/images/'+ file.filename,
+                                    picture: file.filename,
                                     createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
                                     updatedAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate(),
                                 };

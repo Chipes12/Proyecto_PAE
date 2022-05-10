@@ -28,17 +28,6 @@ const fileFilter = (req, file, cb) => {
 }
 
 const multerStorage = multer.diskStorage(multerOptions);
-/*const multerStorage = multerS3({
-    s3: s3,
-    bucket: 'arn:aws:s3:::proyectopae2022',
-    metadata: function (req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
-    key: function (req, file, cb) {
-        const ext = file.originalname.split('.').pop();
-        cb(null, `${file.fieldname}-${new Date().getTime()}.${ext}`);
-    }
-  });*/
 
 module.exports = multer({storage: multerStorage, fileFilter});
 
