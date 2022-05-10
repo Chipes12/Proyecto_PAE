@@ -20,7 +20,7 @@ const ForumsController = {
     },
     create: (req, res) => {
         const forum = new Forum();
-        forum.create(req.body).then(result => {
+        forum.create(req.body, req.file).then(result => {
             if(result) res.sendStatus(201);
         }).catch(err => {
             res.sendStatus(500);
@@ -28,7 +28,7 @@ const ForumsController = {
     },
     update: (req, res) => {
         const forum = new Forum();
-        forum.update(req.params.id, req.body).then(result => {
+        forum.update(req.params.id, req.body, req.file).then(result => {
             if(result) res.sendStatus(200);
         }).catch(err => {
             res.sendStatus(500);
@@ -38,6 +38,14 @@ const ForumsController = {
         const forum = new Forum();
         forum.delete(req.params.id).then(result => {
             if(result) res.sendStatus(200);
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
+    count:(req, res) => {
+        const forum = new Forum();
+        forum.count().then(result => {
+            if(result) res.status(200).send({count: result});
         }).catch(err => {
             res.sendStatus(500);
         });

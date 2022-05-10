@@ -1,5 +1,5 @@
 const express = require('express');
-//const path = require('path');
+const path = require('path');
 const dotenv = require('dotenv');
 const bp = require('body-parser');
 //const socketIo = require('socket.io');
@@ -14,6 +14,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use('/assets', express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 app.use(bp.json());

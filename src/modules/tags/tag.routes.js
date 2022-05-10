@@ -43,6 +43,20 @@ router.route('/')
    */
 .post(controller.create);
 
+router.route('/count')
+/**
+ * @swagger
+ *   /tags/count:
+ *     get:
+ *       tags:
+ *       - Tags
+ *       description: Get the total of tags
+ *       responses:
+ *         200:
+ *           description: object with number of tags
+ */
+.get(controller.count);
+
 router.route('/:id')
   /**
    * @swagger

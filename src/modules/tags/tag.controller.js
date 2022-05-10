@@ -41,7 +41,15 @@ const TagsController = {
         }).catch(err => {
             res.sendStatus(500);
         });
-    }
+    },
+    count:(req, res) => {
+        const tag = new Tag();
+        tag.count().then(result => {
+            if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
 }
 
 module.exports = TagsController;

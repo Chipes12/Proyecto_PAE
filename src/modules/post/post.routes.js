@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const controller = require('./post.controller');
+const upload = require('../../core/multer');
 
 router.route('/')
   /**
@@ -47,7 +48,42 @@ router.route('/')
    *         500:
    *           description: String with the error message
    */
-.post(controller.create);
+.post(upload.single('archivo'), controller.create);
+
+router.route('/count')
+/**
+ * @swagger
+ *   /posts/count:
+ *     get:
+ *       tags:
+ *       - Posts
+ *       description: Get the total of posts
+ *       responses:
+ *         200:
+ *           description: object with number of posts
+ */
+.get(controller.count);
+
+router.route('/forum/:id')
+  /**
+   * @swagger
+   *   /posts/forum/{id}:
+   *     get:
+   *       tags:
+   *       - Posts
+   *       description: Get all the posts with a id forum
+   *       parameters:
+   *         - in: path
+   *           name: id
+   *           required: true
+   *           description: The forum's unique ID
+   *       responses:
+   *         200:
+   *           description: An array of posts of the same forum
+   *         500:
+   *           description: String with the error message
+   */
+.get(controller.getPostOfForum);
 
 router.route('/:id')
   /**
@@ -100,7 +136,7 @@ router.route('/:id')
    *         500:
    *           description: String with the error message
    */        
-.put(controller.update)
+.put(upload.single('archivo'), controller.update)
   /**
    * @swagger
    *   /posts/{id}:

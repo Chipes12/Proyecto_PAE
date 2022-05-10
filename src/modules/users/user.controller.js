@@ -22,15 +22,15 @@ const UsersController = {
         user.create(req.body).then(result => {
             if(result) res.sendStatus(201);
         }).catch(err => {
-            res.sendStatus(500);
+            res.send({error: err});
         });
     },
     update: (req, res) => {
         const user = new User();
-        user.update(req.params.id, req.body).then(result => {
+        user.update(req.params.id, req.body, req.file).then(result => {
             if(result) res.sendStatus(200);
         }).catch(err => {
-            res.sendStatus(500);
+            res.send({error: err});
         });
     },
     delete: (req, res) => {
@@ -38,7 +38,7 @@ const UsersController = {
         user.delete(req.params.id).then(result => {
             if(result) res.sendStatus(200);
         }).catch(err => {
-            res.sendStatus(500);
+            res.send({error: err});
         });
     },
     login: (req, res) => {
@@ -46,9 +46,17 @@ const UsersController = {
         user.login(req.body).then(result => {
             if(result) res.send(result);
         }).catch(err => {
-            res.sendStatus(500);
+            res.send({error: err});
         })
-    }
+    },
+    count:(req, res) => {
+        const user = new User();
+        user.count().then(result => {
+            if(result) res.status(200).send({count: result});
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
 }
 
 module.exports = UsersController;
