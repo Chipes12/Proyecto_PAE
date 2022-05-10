@@ -2,6 +2,10 @@ const Model = require('../../core/model');
 const jwt = require('jsonwebtoken');
 const {ObjectId} = require('mongodb');
 const bcrypt = require('bcrypt');
+const {OAuth2Client } = require('google-auth-library');
+const Database = require('../../core/database');
+const { reject } = require('bcrypt/promises');
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const saltRounds = 10;
 const tokenKey = process.env.TOKEN_KEY;
 
@@ -75,6 +79,35 @@ class User extends Model {
                     }
                 });
             }
+        });
+    }
+
+    googleLogin(body){
+        return new Promise((accept, reject) => {
+            googleClient.verifyIdToken({
+                idToken: body.idToken
+            }).then(response => {
+                Database.collection('users').findOne({email: response.email}).then(user => {
+                    if(user){
+                        let payload = {
+                            _id : user._id,
+                            username: user.username,
+                            email: result.email
+                        }
+                        if(!user.googleId){
+                            Database.collection('users').updateOne({email: response.email}, {$set: {googleId: body.id}}).then(() => {
+                                accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
+                            });
+                        } else{
+                            accept(JSON.stringify({token : jwt.sign(payload, tokenKey, options)}));
+                        }
+                    } else {
+                        reject('Not a real user');
+                    }
+                });
+            }).catch(e => {
+                reject(e);
+            });
         });
     }
 }
