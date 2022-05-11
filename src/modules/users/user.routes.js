@@ -173,4 +173,34 @@ router.route('/login')
    */
 .post(controller.login);
 
+router.route('/login/google')
+  /**
+   * @swagger
+   *   /users/login/google:
+   *     post:
+   *       tags:
+   *       - Users
+   *       description: Start a session with google
+   *       parameters:
+   *         - in: body
+   *           name: credentials
+   *           description: the data to initiate the session
+   *           schema:
+   *              type: object
+   *              required:
+   *                  - password
+   *                  - email
+   *              properties:
+   *                  password:
+   *                      type: String
+   *                  email:
+   *                      type: String
+   *       responses:
+   *         200:
+   *           description: String with the session token
+   *         500:
+   *           description: String with the error message
+   */
+.post(controller.googleLogin);
+
 module.exports = router;

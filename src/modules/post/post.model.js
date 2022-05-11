@@ -10,14 +10,10 @@ class Post extends Model {
     //getOne already implemented in model
     //delete already implemented in model
 
-    create(body, file){
-        let content;
-        if(body.content) content = body.content;
-        else {
-            if(file != undefined) content = file.filename;
-        }        
+    create(body, file){ 
         return new Promise((accept, reject) => {
-            if(!body.title || !content || !body.id_author || !body.id_forum) reject('Data is missing');
+            if(!file) console.log("No archivo");
+            if(!body.title || !file || !body.id_author || !body.id_forum) reject('Data is missing');
             else{
                 Database.collection('users').findOne({_id: ObjectId(body.id_author)}, (err, result) => {
                     if(!result) reject('Not a real user');
@@ -28,7 +24,7 @@ class Post extends Model {
                                 let today = new Date();
                                 let newPost = {
                                     title: body.title,
-                                    content: body.content || ('public/images/'+ file.filename),
+                                    content: file.filename,
                                     id_author: body.id_author,
                                     id_forum: body.id_forum,
                                     createdAt: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()

@@ -57,6 +57,14 @@ const UsersController = {
             res.sendStatus(500);
         });
     },
+    googleLogin:(req, res) => {
+        const user = new User();
+        user.googleLogin(req.body).then(result => {
+            if(result) res.status(200).send(result);
+        }).catch(err => {
+            res.sendStatus(500);
+        });
+    },
 }
 
 module.exports = UsersController;
