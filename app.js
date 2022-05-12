@@ -62,23 +62,25 @@ Database.connect().then(() => {
         console.log('alguien se conecto');
 
         socket.on('viewComments', (data) => {
+            socket.join(data);
             console.log("alguien quiere comentarios del post " + data);
             Database.collection('comments').find({id_post: data}).toArray((err, results) => {
-                socket.broadcast.emit('viewComments', results);
+                socket.to(data).emit('viewComments', results);
             });
         });
 
         socket.on('viewPosts', (data) => {
+            socket.join(data);
             console.log("alguien quiere posts del foro " + data);
             Database.collection('posts').find({id_forum: data}).toArray((err, results) => {
-                socket.broadcast.emit('viewPosts', results);
+                socket.to(data).emit('viewPosts', results);
             });
         });
 
         socket.on('viewForums', (data) => {
             console.log("alguien quiere foros ");
             Database.collection('forums').find({}).toArray((err, results) => {
-                socket.broadcast.emit('viewForums', results);
+                socket.broadcast.emit("viewForums", results);
             });
         });
     });
