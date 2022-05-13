@@ -48,7 +48,7 @@ class Post extends Model {
                     if(body.content){
                         content = body.content
                     } else{
-                        content = 'public/images/'+ file.filename;
+                        content = file.filename;
                     }
                     let upgrade = {
                         title: body.title || result.title,
