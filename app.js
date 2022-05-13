@@ -35,7 +35,7 @@ const swaggerOptions = {
             title: 'Proyecto PAE',
             description: 'A forums web page',
             version: '1.0.0',
-            servers: ['http://localhost:' + port]
+            servers: ['https://the-forum-pae.herokuapp.com/']
         }
     },
     apis: ['./src/modules/**/*.routes.js']
